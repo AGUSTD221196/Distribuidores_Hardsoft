@@ -8,14 +8,15 @@ export default function Header() {
       {/* Logo */}
       <Link href="/" className="flex items-center gap-3 text-2xl font-bold text-white">
         <div className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden ring-1 ring-white/10">
-          <Image
-            src="/images/LOGO_HS.png"
-            alt="Hardsoft Soluciones Logo"
-            fill
-            sizes="48px"
-            className="object-cover"
-          />
-        </div>
+  <Image
+    src="https://ftpfuonfqsnmdwipiety.supabase.co/storage/v1/object/public/images/LOGO_HS.png"
+    alt="Hardsoft Soluciones Logo"
+    fill
+    sizes="48px"
+    loading="eager"
+    className="object-cover"
+  />
+</div>
         <span>
           HARDSOFT <span className="text-[var(--accent-action)]">SOLUCIONES</span>
         </span>

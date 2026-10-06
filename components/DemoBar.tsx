@@ -1,40 +1,122 @@
 // components/DemoBar.tsx
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { PRODUCTOS } from '@/data/productos';
 
-interface DemoBarProps {
-  slugActual: string;
+interface Producto {
+  slug: string;
+  folio: string | number;
+  nombre: string;
 }
 
-export default function DemoBar({ slugActual }: DemoBarProps) {
-  const router = useRouter();
-  const productKeys = Object.keys(PRODUCTOS) as Array<keyof typeof PRODUCTOS>;
+interface DemoBarProps {
+  activeSlug: string;
+  productos: Producto[];
+}
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const slug = e.target.value;
-    router.push(`/licencias/${slug}`);
+export default function DemoBar({
+  activeSlug,
+  productos,
+}: DemoBarProps) {
+  const router = useRouter();
+
+  const [open, setOpen] = useState(false);
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Cerrar el menú cuando se haga clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener(
+        'mousedown',
+        handleClickOutside
+      );
+    };
+  }, []);
+
+  const productoActual = productos.find(
+    (producto) => producto.slug === activeSlug
+  );
+
+  const handleChange = (slug: string) => {
+    setOpen(false);
+
+    if (slug) {
+      router.push(`/licencias/${slug}`);
+    }
   };
 
   return (
-    <div className="demo-bar bg-[var(--bg-card)] border-b border-[var(--border-subtle)] py-2 px-4">
-      <div className="container mx-auto flex items-center gap-4">
-        <label htmlFor="demoSelect" className="text-[var(--text-muted)] text-sm">
-          Vista previa — cambiar producto:
-        </label>
-        <select
-          id="demoSelect"
-          value={slugActual}
-          onChange={handleChange}
-          className="bg-[var(--bg-main)] text-[var(--text-primary)] border border-[var(--border-subtle)] rounded px-3 py-1"
+    <div className="demo-bar">
+      <div className="container mx-auto px-4">
+
+        <div
+          ref={dropdownRef}
+          className="demo-dropdown"
         >
-          {productKeys.map((slug) => (
-            <option key={slug} value={slug}>
-              Folio {PRODUCTOS[slug].folio} — {PRODUCTOS[slug].nombre}
-            </option>
-          ))}
-        </select>
+
+          {/* Botón principal */}
+          <button
+            type="button"
+            className={`demo-dropdown-button ${
+              open ? 'is-open' : ''
+            }`}
+            onClick={() => setOpen(!open)}
+          >
+            <span className="demo-dropdown-text">
+              {productoActual
+                ? `Folio ${productoActual.folio} — ${productoActual.nombre}`
+                : 'Selecciona un producto'}
+            </span>
+
+            <span
+              className={`demo-dropdown-arrow ${
+                open ? 'rotate' : ''
+              }`}
+            >
+              ▼
+            </span>
+          </button>
+
+
+          {/* Menú */}
+          {open && (
+            <div className="demo-dropdown-menu">
+
+              {productos.map((producto) => (
+                <button
+                  key={producto.slug}
+                  type="button"
+                  className={`demo-dropdown-option ${
+                    producto.slug === activeSlug
+                      ? 'active'
+                      : ''
+                  }`}
+                  onClick={() =>
+                    handleChange(producto.slug)
+                  }
+                >
+                  Folio {producto.folio} — {producto.nombre}
+                </button>
+              ))}
+
+            </div>
+          )}
+
+        </div>
+
       </div>
     </div>
   );

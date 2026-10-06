@@ -16,14 +16,7 @@ export default function EmpresaInfo(){
         que nuestros clientes obtengan el máximo rendimiento de sus herramientas digitales.
         </p>
 
-<div style={{ position: 'relative', width: '100%', height: '400px' }}>
-  <Image
-    src="/images/LOGO_HS.png"
-    alt="Equipo de trabajo de la empresa"
-    fill
-    style={{ objectFit: 'contain' }}
-  />
-</div>
+
         </section>
 
     );

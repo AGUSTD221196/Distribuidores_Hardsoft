@@ -1,48 +1,128 @@
-// app/licencias/page.tsx
 import Link from 'next/link';
-import { PRODUCTOS } from '@/data/productos';
+import { createClient } from '@supabase/supabase-js';
 
-export const metadata = {
-  title: 'Licencias - HardSoft Soluciones',
-  description: 'Conoce todas las licencias y módulos de COMPAQi disponibles en HardSoft Soluciones.',
-};
+// Inicializamos Supabase
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
+);
 
-export default function LicenciasIndexPage() {
-  const productos = Object.entries(PRODUCTOS);
+export const revalidate = 0; // Evita que Next.js guarde el caché de los productos antiguos
+
+export default async function MenuLicencias() {
+  // Traemos todos los productos activos ordenados por folio
+  const { data: productos, error } = await supabase
+    .from('productos')
+    .select('slug, folio, nombre, categoria')
+    .eq('activo', true)
+    .order('folio', { ascending: true });
+
+  if (error || !productos) {
+    return (
+      <p className="menu-licencias-error">
+        Error al cargar el catálogo.
+      </p>
+    );
+  }
+
+  // Agrupamos los productos según los pilares oficiales de CONTPAQi
+  const categorias = [
+    {
+      id: 'contable',
+      titulo: 'Contabilidad',
+      items: productos.filter((p) =>
+        [
+          'contabilidad',
+          'tesoreria',
+          'bancos',
+          'xmlenlinea',
+          'optimiza',
+          'anticipa',
+          'contabiliza',
+          'despachos',
+        ].includes(p.slug)
+      ),
+    },
+    {
+      id: 'comercial',
+      titulo: 'Administración',
+      items: productos.filter((p) =>
+        [
+          'comercial',
+          'facturacion',
+          'cfdienlinea',
+          'vende',
+          'puntodeventa',
+        ].includes(p.slug)
+      ),
+    },
+    {
+      id: 'nominas',
+      titulo: 'Personas',
+      items: productos.filter((p) =>
+        [
+          'nomina',
+          'colabora',
+          'evalua035',
+          'kursa',
+          'personia',
+        ].includes(p.slug)
+      ),
+    },
+    {
+      id: 'infraestructura',
+      titulo: 'Infraestructura',
+      items: productos.filter((p) =>
+        ['respaldos', 'escritoriovirtual', 'timbra'].includes(p.slug)
+      ),
+    },
+  ];
 
   return (
-    <>
-    
-      <main id="main">
-        <section className="section bordered">
-          <div className="wrap">
-            <h1 className="text-3xl font-bold text-white mb-2">Nuestras licencias</h1>
-            <p className="text-[var(--text-secondary)] mb-8">
-              Elige el módulo que necesitas para tu empresa. Puedes combinar varios y conectarlos entre sí.
-            </p>
+    <section className="menu-licencias">
+      <div className="menu-licencias-container">
+        <h2 className="menu-licencias-title">
+          Nuestras licencias
+        </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {productos.map(([slug, p]) => (
-                <Link
-                  key={slug}
-                  href={`/licencias/${slug}`}
-                  className="block rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-header)] p-6 hover:border-[var(--accent-action)] transition"
-                >
-                  <span className="text-xs text-[var(--accent-action)] font-mono">
-                    #{p.folio}
-                  </span>
-                  <h2 className="text-xl font-semibold text-white mt-1 mb-2">
-                    {p.nombre}
-                  </h2>
-                  <p className="text-sm text-[var(--text-secondary)]">
-                    {p.tagline}
-                  </p>
-                </Link>
-              ))}
+        <p className="menu-licencias-description">
+          Elige el módulo que necesitas para tu empresa. Puedes combinar varios
+          y conectarlos entre sí.
+        </p>
+
+        <div className="menu-licencias-grid">
+          {categorias.map((cat) => (
+            <div
+              key={cat.id}
+              className="menu-licencias-category"
+            >
+              <div
+                className={`menu-licencias-category-title menu-cat-${cat.id}`}
+              >
+                {cat.titulo}
+              </div>
+
+              <div className="menu-licencias-list">
+                {cat.items.map((prod) => (
+                  <Link
+                    key={prod.slug}
+                    href={`/licencias/${prod.slug}`}
+                    className="menu-licencias-link"
+                  >
+                    <div className="menu-licencias-folio">
+                      {prod.folio}
+                    </div>
+
+                    <span className="menu-licencias-name">
+                      {prod.nombre}
+                    </span>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
-      </main>
-    </>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

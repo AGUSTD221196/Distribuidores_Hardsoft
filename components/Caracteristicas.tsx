@@ -20,4 +20,4 @@ export default function Caracteristicas({ caracteristicas }: CaracteristicasProp
       </div>
     </section>
   );
-}
+} 

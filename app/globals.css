@@ -38,3 +38,411 @@ body {
   margin: 0;
   font-family: system-ui, -apple-system, sans-serif;
 }
+
+/* =========================================================
+   MENU DE LICENCIAS
+   ========================================================= */
+
+.menu-licencias {
+  min-height: 100vh;
+  padding: 3rem 1.5rem;
+  background-color: var(--bg-main);
+}
+
+.menu-licencias-container {
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.menu-licencias-title {
+  margin: 0 0 0.5rem;
+  color: var(--text-primary);
+  font-size: 1.875rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.menu-licencias-description {
+  margin: 0 0 2.5rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Grid principal */
+
+.menu-licencias-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+/* Categoría */
+
+.menu-licencias-category {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.menu-licencias-category-title {
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  text-align: center;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* Colores usando exclusivamente variables de globals.css */
+
+.menu-cat-contable {
+  background-color: var(--accent-action);
+  color: var(--text-primary);
+}
+
+.menu-cat-comercial {
+  background-color: var(--accent-hover);
+  color: var(--bg-main);
+}
+
+.menu-cat-nominas {
+  background-color: var(--accent-gold);
+  color: var(--bg-main);
+}
+
+.menu-cat-infraestructura {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Lista */
+
+.menu-licencias-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+/* Enlaces */
+
+.menu-licencias-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+
+  color: var(--text-primary);
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.menu-licencias-link:hover {
+  background-color: var(--bg-card);
+  border-color: var(--border-subtle);
+  transform: translateX(2px);
+}
+
+/* Folio */
+
+.menu-licencias-folio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 2rem;
+  height: 2rem;
+
+  border-radius: 0.375rem;
+
+  background-color: var(--bg-card);
+  color: var(--text-muted);
+
+  font-size: 0.75rem;
+  font-family: monospace;
+  font-weight: 600;
+}
+
+/* Nombre del producto */
+
+.menu-licencias-name {
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+/* Error */
+
+.menu-licencias-error {
+  margin: 2rem auto;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  .menu-licencias-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .menu-licencias {
+    padding: 2rem 1rem;
+  }
+
+  .menu-licencias-title {
+    font-size: 1.5rem;
+  }
+
+  .menu-licencias-description {
+    margin-bottom: 2rem;
+  }
+
+  .menu-licencias-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* =========================================
+   DEMO BAR
+   ========================================= */
+
+.demo-bar {
+  position: relative;
+  z-index: 100;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 12px 16px;
+}
+
+
+/* =========================================
+   CONTENEDOR DEL DROPDOWN
+   ========================================= */
+
+.demo-dropdown {
+  position: relative;
+  width: 100%;
+  max-width: 490px;
+}
+
+
+/* =========================================
+   BOTÓN PRINCIPAL
+   ========================================= */
+
+.demo-dropdown-button {
+  width: 100%;
+  min-height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 8px 14px;
+
+  background: var(--bg-main);
+  color: var(--text-primary);
+
+  border: 1px solid var(--border-subtle);
+  border-radius: 5px;
+
+  font-size: 18px;
+  font-family: inherit;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.demo-dropdown-button:hover {
+  border-color: var(--accent-action);
+}
+
+
+.demo-dropdown-button.is-open {
+  border-color: var(--accent-action);
+
+  box-shadow:
+    0 0 0 2px rgba(0, 120, 255, 0.12);
+}
+
+
+/* =========================================
+   TEXTO DEL PRODUCTO
+   ========================================= */
+
+.demo-dropdown-text {
+  overflow: hidden;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  text-align: left;
+}
+
+
+/* =========================================
+   FLECHA
+   ========================================= */
+
+.demo-dropdown-arrow {
+  margin-left: 12px;
+
+  font-size: 11px;
+
+  transition: transform 0.2s ease;
+}
+
+
+.demo-dropdown-arrow.rotate {
+  transform: rotate(180deg);
+}
+
+
+/* =========================================
+   MENÚ DESPLEGABLE
+   ========================================= */
+
+.demo-dropdown-menu {
+  position: absolute;
+
+  top: calc(100% + 5px);
+  left: 0;
+
+  width: 100%;
+
+  background: var(--bg-main);
+
+  border: 1px solid var(--border-subtle);
+  border-radius: 5px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.35);
+
+  z-index: 1000;
+
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+
+/* =========================================
+   OPCIONES
+   ========================================= */
+
+.demo-dropdown-option {
+  width: 100%;
+
+  display: block;
+
+  padding: 11px 14px;
+
+  border: none;
+
+  background: transparent;
+  color: var(--text-primary);
+
+  font-family: inherit;
+  font-size: 17px;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+
+.demo-dropdown-option:hover {
+  background: var(--bg-card);
+  color: var(--accent-action);
+}
+
+
+/* Producto actual */
+
+.demo-dropdown-option.active {
+  background: var(--accent-action);
+  color: white;
+}
+
+
+/* Hover sobre el producto actual */
+
+.demo-dropdown-option.active:hover {
+  filter: brightness(1.08);
+}
+
+
+/* =========================================
+   SCROLLBAR
+   ========================================= */
+
+.demo-dropdown-menu::-webkit-scrollbar {
+  width: 7px;
+}
+
+
+.demo-dropdown-menu::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+
+
+.demo-dropdown-menu::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 4px;
+}
+
+
+.demo-dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-action);
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+  .demo-bar {
+    padding: 10px 12px;
+  }
+
+  .demo-dropdown-button {
+    font-size: 16px;
+  }
+
+  .demo-dropdown-option {
+    font-size: 15px;
+    padding: 10px 12px;
+  }
+
+}
