@@ -48,11 +48,12 @@ export default async function MenuLicencias() {
       titulo: 'Administración',
       items: productos.filter((p) =>
         [
-          'comercial',
+          'comercialstart',
+          'comercialpro',
           'facturacion',
           'cfdienlinea',
           'vende',
-          'puntodeventa',
+          'comercialpremium',
         ].includes(p.slug)
       ),
     },
@@ -62,7 +63,6 @@ export default async function MenuLicencias() {
       items: productos.filter((p) =>
         [
           'nomina',
-          'colabora',
           'evalua035',
           'kursa',
           'personia',
@@ -71,9 +71,9 @@ export default async function MenuLicencias() {
     },
     {
       id: 'infraestructura',
-      titulo: 'Infraestructura',
+      titulo: ' Servicios de Infraestructura',
       items: productos.filter((p) =>
-        ['respaldos', 'escritoriovirtual', 'timbra'].includes(p.slug)
+        ['respaldos', 'escritoriovirtual'].includes(p.slug)
       ),
     },
   ];
