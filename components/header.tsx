@@ -96,7 +96,7 @@ export default function Header() {
               Nosotros
             </Link>
             <a 
-              href="https://wa.me/5210000000000" 
+              href="https://wa.me/527498505685" 
               target="_blank"
               rel="noopener noreferrer"
               onClick={toggleMenu}
