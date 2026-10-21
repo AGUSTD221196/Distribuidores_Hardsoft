@@ -446,3 +446,15 @@ body {
   }
 
 }
+/* Agrega esto al final de tu globals.css */
+.tarjeta-premium {
+  @apply bg-[#1E293B] border border-[#2A3B52] hover:border-[#00A82D] rounded-md p-6 flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#00A82D]/15;
+}
+
+.tarjeta-titulo {
+  @apply text-xl font-bold text-[#E2E8F0] mb-3 leading-tight;
+}
+
+.tarjeta-icono {
+  @apply w-16 h-16 object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300;
+}

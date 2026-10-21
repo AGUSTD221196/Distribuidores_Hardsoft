@@ -11,10 +11,10 @@ export default function Hero() {
                para optimizar tu contabilidad , nómina y facturación electrónica.
             </p>
             <div className=" mt-8 flex flex-wrap justify-center gap-4 ">
-            <Link href="#licencias" className="bg-[var(--accent-action)] text-white px-6 py-3 rounded font-semibold hover:bg-[var(--accent-hover)] hover:text-[var(--bg-main)] transition">
+            <Link href="licencias" className="bg-[var(--accent-action)] text-white px-6 py-3 rounded font-semibold hover:bg-[var(--accent-hover)] hover:text-[var(--bg-main)] transition">
             CATALOGO DE LICENCIAS
             </Link>
-            <Link href="/contacto" className="bg-[var(--accent-action)] text-white px-6 py-3 rounded font-semibold hover:bg-[var(--accent-hover)] hover:text-[var(--bg-main)] transition">
+            <Link href={`https://wa.me/5210000000000?text=${''}`} className="bg-[var(--accent-action)] text-white px-6 py-3 rounded font-semibold hover:bg-[var(--accent-hover)] hover:text-[var(--bg-main)] transition">
 
             COTIZACION POR WHATSAPP
             </Link>
